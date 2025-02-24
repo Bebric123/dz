@@ -1,7 +1,9 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
-require('dotenv').config();
+require('dotenv').config(); 
+
+
 
 const app = express();
 const PORT = 3000;
@@ -9,7 +11,6 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
-// Маршрут для получения случайного фильма
 app.get('/api/movie/random', async (req, res) => {
     try {
         const response = await axios.get('https://api.kinopoisk.dev/v1.4/movie/random', {
@@ -25,7 +26,6 @@ app.get('/api/movie/random', async (req, res) => {
     }
 });
 
-// Запуск сервера
 app.listen(PORT, () => {
     console.log(`Сервер запущен на http://localhost:${PORT}`);
 });
