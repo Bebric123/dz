@@ -1,0 +1,39 @@
+node_modules/
+.env
+npm-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Logs
+logs/
+*.log
+*.out
+*.pid
+*.seed
+*.gz
+debug/
+
+# Build output
+dist/
+build/
+out/
+
+# IDE/Editor
+.vscode/
+.idea/
+*.iml
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Git
+*.swp
+*.swo
+*.bak
+
+# TypeScript
+*.tsbuildinfo
+
+# Coverage
+coverage/

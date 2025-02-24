@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Imprima&family=Oswald:wght@200..700&family=Quicksand:wght@300..700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 50px;
+    background-color: rgba(0, 0, 0, 0.938);
+    color: white;
+    margin: 0 auto;
+    font-family: "Imprima", serif;
+}
+
+.nav__block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between ;
+    width: 90%;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+.link {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn1 {
+    box-sizing: border-box;
+    border: 2px solid rgb(204, 255, 0);
+    border-radius: 20.1px;
+    background: rgba(217, 217, 217, 0);
+    width: 104.69px;
+    height: 38.4px;
+    color: white;
+    cursor: pointer;
+}
+
+h1, h2  {
+    font-size: 35px;
+}
+
+.btn__block {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.btn {
+    box-sizing: border-box;
+    border: 2px solid rgb(204, 255, 0);
+    border-radius: 20.1px;
+    background: rgba(217, 217, 217, 0);
+    width: 170px;
+    height: 38.4px;
+    color: white;
+    cursor: pointer;
+}
+
+.btn:hover, .btn1:hover {
+    background-color: rgb(204, 255, 0);
+    color: black;
+}
+
+#favoritesList {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+#favoritesList div {
+    width: 120px; 
+}
+
+#favoritesList img {
+    width: 100px; 
+    height: 150px; 
+    object-fit: cover; 
+    display: block;
+    margin: 0 auto;
+}
+
+#movie, #favoriteMovie {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#movie img, #favoriteMovie img {
+    width: 200px; 
+    height: 300px; 
+    object-fit: cover;
+    display: block;
+}
+
+.movie__block {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.movie__block::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../img/4.jpg) no-repeat center / cover;
+    filter: brightness(70%);
+    background-attachment: fixed; 
+    z-index: -1;
+}
+
+.movie__background {
+    position: relative; 
+    z-index: 1;
+    text-align: center;
+    color: white; 
+}
+
+
+.movie__background {
+    width: 800px;
+    height: 600px; 
+    background-color: #0000007e; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    text-align: center; 
+    color: white; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+}
