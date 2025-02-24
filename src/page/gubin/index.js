@@ -14,33 +14,41 @@ const defaultPoster = 'https://avatars.mds.yandex.net/i?id=138b479b8014f3d76a43b
 
 let currentMovie = null;
 
-getMovieBtn.addEventListener('click', () => {
+getMovieBtn.addEventListener('click', fetchRandomMovie);
+addFavoriteBtn.addEventListener('click', addMovieToFavorites);
+getRandomFavoriteBtn.addEventListener('click', displayRandomFavorite);
+
+function fetchRandomMovie() {
     fetch('http://localhost:3000/api/movie/random')
         .then(response => response.json())
-        .then(response => {
-            currentMovie = {
-                name: response.name || response.alternativeName,
-                poster: response.poster?.previewUrl || defaultPoster
-            };
-            movieDiv.innerHTML = `
-                <img src="${currentMovie.poster}" alt="${currentMovie.name}" style="width:200px;"/>
-                <h2>${currentMovie.name}</h2>
-            `;
-        })
+        .then(movie => displayMovie(movie))
         .catch(err => console.error('Ошибка получения фильма:', err));
-});
+}
 
-addFavoriteBtn.addEventListener('click', () => {
-    if (currentMovie) {  
-        let favorites = JSON.parse(getCookie('favorites') || '[]');
+function displayMovie(movie) {
+    currentMovie = {
+        name: movie.name || movie.alternativeName,
+        poster: movie.poster?.previewUrl || defaultPoster
+    };
+
+    movieDiv.innerHTML = `
+        <img src="${currentMovie.poster}" alt="${currentMovie.name}" style="width:200px;"/>
+        <h2>${currentMovie.name}</h2>
+    `;
+}
+
+function addMovieToFavorites() {
+    if (currentMovie) {
+        const favorites = getFavorites();
         favorites.push(currentMovie);
-        document.cookie = `favorites=${JSON.stringify(favorites)}; path=/; max-age=31536000`;
+        saveFavorites(favorites);
         alert('Фильм добавлен в избранное!');
+        displayFavorites(); 
     }
-});
+}
 
-getRandomFavoriteBtn.addEventListener('click', () => {
-    let favorites = JSON.parse(getCookie('favorites') || '[]');
+function displayRandomFavorite() {
+    const favorites = getFavorites();
 
     if (favorites.length > 0) {
         const randomMovie = favorites[Math.floor(Math.random() * favorites.length)];
@@ -52,9 +60,11 @@ getRandomFavoriteBtn.addEventListener('click', () => {
     } else {
         favoriteDiv.innerHTML = '<p>Избранных фильмов нет.</p>';
     }
-});
+}
+
 function displayFavorites() {
-    let favorites = JSON.parse(getCookie('favorites') || '[]');
+    const favorites = getFavorites();
+
     favoritesListDiv.innerHTML = favorites.map(movie => `
         <div>
             <img src="${movie.poster || defaultPoster}" alt="${movie.name}" style="width:100px;"/>
@@ -63,10 +73,19 @@ function displayFavorites() {
     `).join('');
 }
 
+function getFavorites() {
+    return JSON.parse(getCookie('favorites') || '[]');
+}
+
+function saveFavorites(favorites) {
+    document.cookie = `favorites=${JSON.stringify(favorites)}; path=/; max-age=31536000`;
+}
+
 function getCookie(name) {
     const matches = document.cookie.match(new RegExp(
         "(?:^|; )" + name.replace(/([.$?*|{}()\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
     ));
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
+
 displayFavorites();
