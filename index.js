@@ -25,6 +25,7 @@ app.get('/api/movie/random', async (req, res) => {
         console.error(error);
 
         if (error.response) {
+            // Ошибка от API (4xx или 5xx)
             const { status, data } = error.response;
 
             if (status >= 400 && status < 500) {
@@ -49,11 +50,13 @@ app.get('/api/movie/random', async (req, res) => {
                 details: data 
             });
         } else if (error.request) {
+            // Ошибка запроса (например, API недоступно)
             return res.status(503).json({ 
                 message: 'Сервис API недоступен', 
                 status: 503 
             });
         } else {
+            // Другая ошибка (например, ошибка в коде)
             return res.status(500).json({ 
                 message: 'Внутренняя ошибка сервера', 
                 status: 500 
