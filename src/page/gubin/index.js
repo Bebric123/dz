@@ -20,9 +20,18 @@ getRandomFavoriteBtn.addEventListener('click', displayRandomFavorite);
 
 function fetchRandomMovie() {
     fetch('http://localhost:3000/api/movie/random')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                if (response.status >= 400 && response.status < 500) {
+                    throw new Error(`Ошибка клиента (${response.status}): Проверьте запрос.`);
+                } else if (response.status >= 500) {
+                    throw new Error(`Ошибка сервера (${response.status}): Попробуйте позже.`);
+                }
+            }
+            return response.json();
+        })
         .then(movie => displayMovie(movie))
-        .catch(err => console.error('Ошибка получения фильма:', err));
+        .catch(err => console.error('Ошибка получения фильма:', err.message));
 }
 
 function displayMovie(movie) {
